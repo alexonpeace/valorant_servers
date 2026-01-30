@@ -120,19 +120,41 @@ Configure routing to prefer **SMW4** (SEA-ME-WE 4) or **SMW5** (SEA-ME-WE 5) sub
 
 ## For Players
 
-### Checking Your Server Connection
+### ⚠️ Important: Ping Testing Limitations
+
+**Most Valorant server IPs will NOT respond to ping (ICMP) requests.** This is intentional for security and DDoS protection. A timeout does NOT mean the server is down or unreachable.
+
+**What works:**
+- ✅ In-game latency monitoring (Alt+F for network stats)
+- ✅ Traceroute to identify routing path (even if final hop times out)
+- ✅ Monitoring connection quality during actual gameplay
+
+**What doesn't work:**
+- ❌ `ping` command (will timeout even when server is working)
+- ❌ ICMP-based monitoring tools
+- ❌ Most online "ping test" websites
+
+### Checking Your Routing Path
+
+Even though ping may not work, you can still trace the route your traffic takes:
 
 **Windows (Command Prompt):**
 ```cmd
-ping 151.106.246.1
-tracert 151.106.246.1
+tracert -d 151.106.246.1
 ```
 
 **Linux/macOS (Terminal):**
 ```bash
-ping 151.106.246.1
-mtr 151.106.246.1
+traceroute -n 151.106.246.1
+# or
+mtr --no-dns 151.106.246.1
 ```
+
+**What to look for:**
+- Number of hops (fewer is better)
+- Latency increase at each hop
+- Whether traffic goes through Airtel/Tata or direct AWS paths
+- Submarine cable exits (look for Singapore/Chennai hops)
 
 ### VPN Split Tunneling
 
@@ -157,11 +179,13 @@ If you're experiencing routing issues, you can use VPN split tunneling to route 
 
 ## Notes
 
+⚠️ **ICMP ping is blocked** on Valorant servers for security reasons. Timeouts are normal and don't indicate connectivity issues. Use traceroute or in-game stats instead.
+
 ⚠️ **IP addresses are community-sourced and may change without notice.** Riot Games does not officially publish their server IP ranges.
 
 ⚠️ **Some IPs may be anycast addresses** that route to different physical servers based on your location.
 
-⚠️ **ICMP ping may be blocked** on some Riot servers, resulting in timeouts even when the server is operational.
+⚠️ **Verification via gameplay:** Personally tested (PT) IPs were confirmed by capturing network traffic during active Valorant gameplay sessions.
 
 ---
 
@@ -171,10 +195,20 @@ Have updated IP addresses or routing improvements? Please open an issue or pull 
 
 ### Verification Method
 When submitting new IPs, please include:
-- Source (Riot Support ticket, network capture, etc.)
-- Date discovered
-- Method of verification (traceroute, in-game testing)
-- Your geographic location
+- **Source:** Riot Support ticket, network capture, community report
+- **Date discovered:** When you found/verified the IP
+- **Method of verification:** 
+  - Network packet capture (Wireshark/tcpdump) during gameplay
+  - Traceroute showing AS16509 path
+  - Riot Support confirmation
+  - Resource monitor during active game
+- **Your geographic location:** City, ISP name
+
+**Tools for verification:**
+- Windows: Resource Monitor → Network tab (filter Valorant processes)
+- Wireshark: Filter by UDP ports 7000-8000, 8180-8181
+- TCPView (Windows): Real-time connection monitoring
+- netstat/ss (Linux): Active connection listing
 
 ---
 
@@ -184,6 +218,8 @@ When submitting new IPs, please include:
 - [AWS Direct Connect BGP Communities](https://docs.aws.amazon.com/directconnect/latest/UserGuide/routing-and-bgp.html)
 - [Riot Games Network Status](https://status.riotgames.com/)
 - [PeeringDB - AS16509 (Amazon)](https://www.peeringdb.com/asn/16509)
+- [SEA-ME-WE 4 Cable System](https://www.submarinenetworks.com/en/systems/asia-europe-africa/smw4)
+- [SEA-ME-WE 5 Cable System](https://www.submarinenetworks.com/en/systems/asia-europe-africa/smw5)
 
 ---
 
@@ -194,15 +230,12 @@ This information is provided as-is for educational and network optimization purp
 ## Disclaimer
 
 This is an unofficial resource maintained by me personally. Riot Games and Amazon Web Services are not affiliated with this project.
-```
-
-***
 
 ## Verification Summary
 
 Based on my fact-checking:
 
-✅ **Verified:**
+**Verified:**
 - AS16509 is Amazon's ASN
 - AWS Global Accelerator uses anycast IPs
 - BGP community `7224:7200` is valid for medium preference
@@ -211,6 +244,6 @@ Based on my fact-checking:
 - Singapore IP: 151.106.248.1/32 confirmed by multiple sources
 - SMW4/5 submarine cables connect India-Singapore
 
-⚠️ **Partially verified:**
+**Partially verified:**
 - Most IPs in the list appear in community reports but not all have official confirmation
 - Some IPs (like 75.2.66.166, 99.83.136.104) were provided by Riot support to users
