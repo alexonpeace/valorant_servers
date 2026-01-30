@@ -1,8 +1,23 @@
+<div align="center">
 
 # Valorant Asia Pacific Servers
 
+![Valorant](https://img.shields.io/badge/Game-Valorant-FF4655?style=for-the-badge&logo=valorant&logoColor=white)
+![Region](https://img.shields.io/badge/Region-Asia%20Pacific-00D4FF?style=for-the-badge)
+![AWS](https://img.shields.io/badge/AWS-Global%20Accelerator-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![AS16509](https://img.shields.io/badge/ASN-AS16509-232F3E?style=for-the-badge)
+
+**Network routing information and ISP optimization guide for Valorant servers**
+
+[Report Issue](../../issues) • [Contribute](../../pulls) • [Riot Support](https://support-valorant.riotgames.com/)
+
+</div>
+
+---
+
 > Network information for Valorant game servers in the Asia Pacific region  
 > Last Update: 2026-02-01
+
 
 ## Overview
 
@@ -15,26 +30,6 @@ Most Valorant Asia Pacific servers use **AWS Global Accelerator** with anycast I
 ---
 
 ## Server IP Addresses
-
-### All Asia Pacific Servers
-```
-13.248.193.101
-13.248.197.71
-13.248.205.128
-13.248.220.97
-151.106.248.1
-43.229.65.1
-75.2.49.107
-75.2.66.166
-75.2.69.178
-76.223.1.250
-76.223.71.142
-76.223.71.164
-76.223.72.224
-99.83.136.104
-99.83.157.116
-99.83.187.195
-```
 
 ### Singapore Servers
 ```
@@ -78,6 +73,26 @@ Valorant uses the following ports for gameplay:
 | TCP/UDP | 8088 |
 
 ---
+
+### All Asia Pacific Servers (that i know of)
+```
+13.248.193.101
+13.248.197.71
+13.248.205.128
+13.248.220.97
+151.106.248.1
+43.229.65.1
+75.2.49.107
+75.2.66.166
+75.2.69.178
+76.223.1.250
+76.223.71.142
+76.223.71.164
+76.223.72.224
+99.83.136.104
+99.83.157.116
+99.83.187.195
+```
 
 ## For Network Engineers & ISPs
 
